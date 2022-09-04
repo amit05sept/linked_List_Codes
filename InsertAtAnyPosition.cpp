@@ -62,6 +62,41 @@ void insertAtAnyPosition(int key,int pos)
         }
      }
 }
+
+void insertInSortedList(node * firstNode, int key)
+{
+    node *trailingPointer =NULL,*headPointer =firstNode;
+    node * temp= new node;
+    int i;
+    temp->data=key;
+    temp->next=NULL;
+    if(countNode(firstNode)==0)
+    {
+        first=temp;
+        last=temp;
+    }
+    else if(firstNode->data>key)
+    {
+        temp->next=first;
+        first=temp;
+    }
+    else if(last->data<key)
+    {
+        last->next=temp;
+        last=temp;
+    }
+    else
+    {
+        for(i=1;(headPointer->data<key)&&(headPointer);i++)
+        {
+            trailingPointer=headPointer;
+            headPointer=headPointer->next;
+        }
+        temp->next=trailingPointer->next;
+        trailingPointer->next=temp;
+        trailingPointer=temp;
+    }
+}
 void display(node *firstNode)
 {
     if(firstNode==NULL)
@@ -80,13 +115,17 @@ void display(node *firstNode)
 
 int main()
 {
-    insertAtAnyPosition(1,0);
+    insertAtAnyPosition(2,0);
     insertAtAnyPosition(5,1);
-    insertAtAnyPosition(8,2);
-    insertAtAnyPosition(2,3);
-    insertAtAnyPosition(7,0);
+    insertAtAnyPosition(6,2);
+    insertAtAnyPosition(7,3);
+    insertAtAnyPosition(10,4);
     cout<<endl<<countNode(first)<<endl;
     display(first);
+    insertInSortedList(first,11);
+    cout<<"\n";
+    display(first);
+
 
 
     return 0;
