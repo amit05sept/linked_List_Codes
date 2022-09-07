@@ -113,20 +113,67 @@ void display(node *firstNode)
     }
 }
 
+bool checkSortedOrNot(node *firstNode)
+{
+    int x;
+
+    if(countNode(firstNode)==1)
+        return true;
+
+    while(firstNode->next)
+    {
+        x=firstNode->data;
+        firstNode=firstNode->next;
+        if(firstNode->data<x)
+        return false;
+    }
+    return true;
+}
+
+void removeDuplicate(node *firstNode)
+{   node *Pointer=firstNode->next;
+    while(Pointer!=NULL)
+    {
+        if(firstNode->data!=Pointer->data)
+        {  
+            firstNode=Pointer;
+            Pointer=Pointer->next;
+        }
+        else
+        {   
+            firstNode->next= Pointer->next;
+            delete Pointer;
+            Pointer=firstNode->next;
+        }
+    }
+}
+
 int main()
 {
     insertAtAnyPosition(2,0);
     insertAtAnyPosition(5,1);
-    insertAtAnyPosition(6,2);
-    insertAtAnyPosition(7,3);
-    insertAtAnyPosition(10,4);
+    insertAtAnyPosition(5,2);
+    insertAtAnyPosition(8,3);
+    insertAtAnyPosition(8,4);
+    insertAtAnyPosition(8,5);
+    insertAtAnyPosition(10,6);
     cout<<endl<<countNode(first)<<endl;
     display(first);
     insertInSortedList(first,11);
     cout<<"\n";
     display(first);
 
+    if(checkSortedOrNot(first))
+    {
+        cout<<"\n it is sorted \n";
+    }
+    else
+    {
+        cout<<" \n it is not sorted \n";
+    }
 
-
+    cout<<"\n after removing duplicates \n";
+    removeDuplicate(first);
+    display(first);
     return 0;
 }
