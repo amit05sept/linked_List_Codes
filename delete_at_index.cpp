@@ -40,7 +40,7 @@ int deleteNode(node *firstNode, int index)
 {
     node *trailingPointer=NULL;
     int i,deletedElement=-1;
-    if(index<1||index>countNode(first))
+    if(index<1||index>countNode(first)) // validation of the index
         return -1;
     
     if(index==1) // if element to be delete is present at 1st position
