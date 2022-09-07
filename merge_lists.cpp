@@ -107,6 +107,5 @@ int main()
     cout<<"\n\n";
     node *third=mergeList(first,first2);
     display(third);
-
     return 0;
 }
