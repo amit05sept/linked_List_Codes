@@ -148,6 +148,7 @@ void removeDuplicate(node *firstNode)
     }
 }
 
+
 int main()
 {
     insertAtAnyPosition(2,0);

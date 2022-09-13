@@ -53,11 +53,57 @@ bool isLoop(node *f)
     return 0;
 }
 
+void display(node *firstNode)
+{
+    if(firstNode==NULL)
+    {
+        cout<<"\n!!! EMPTY !!!! \n";
+    }
+    else
+    {
+        while(firstNode)
+        {
+           cout<<" "<<firstNode->data<<" ";
+           firstNode=firstNode->next;
+         }
+    }
+}
+node* removeElements(node* head, int val) {
+      if(!head){return NULL;}
+        node *back=NULL,*check=head;
+        while(check)
+        {
+            if(check->data==val)
+            {   
+                if(check==head)
+                {    
+                  head=head->next;
+                  back=head;
+                  check=head;
+                }
+                else
+                {
+                    back->next=check->next;
+                    check=check->next;
+                }
+            }
+            else
+            {
+                back=check;
+                check=check->next;
+            }
+        }
+        return head;
+        
+    }
+
 int main()
 {
-    int ar[]={2,3,5,6,7,10};
-    create(ar,6);
-    last->next=(first->next)->next;
-    cout<<" \n is a loop : (0 for no, 1 for yes )  :  "<<isLoop(first);
+    int ar[]={2,1,5,1,1,5,1,10};
+    create(ar,8);
+    // last->next=(first->next)->next;
+    // cout<<" \n is a loop : (0 for no, 1 for yes )  :  "<<isLoop(first);
+    node * newHead= removeElements(first,1);
+    display(newHead);
     return 0;
 }

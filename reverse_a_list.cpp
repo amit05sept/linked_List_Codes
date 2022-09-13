@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 struct node 
 {
@@ -7,7 +8,11 @@ struct node
 }*first=NULL,*first2=NULL,*last=NULL,*last2=NULL;
 
 void create(int ar[],int n)
-{
+{   if(n==0)
+    {
+        first=NULL;
+        return;
+    }
     node *temp;
     temp=new node;
     temp->data=ar[0];
@@ -81,18 +86,51 @@ void reverseList( node *p)
     first=q;
 
 }
-void ReverseList_recursively(node *q,node *p)
+// void displayAdrress(node *head)
+// {
+//     while(head)
+// }
+node* ReverseList_recursively(node *head,node *q)
 {
-    if(p==NULL)
-    first=q;
+    if(head==NULL)
+    {
+        head=q;
+        return head;
+    }
     else
     {
-        node *temp=p->next;
-        p->next=q;
-        q=p;
-        p=temp;
-        ReverseList_recursively(q,p);
+         node *newhead = ReverseList_recursively(head->next,head);
+         head->next=q;
+        // node *temp=p->next;
+        // p->next=q;
+        // q=p;
+        // p=temp;
+        // ReverseList_recursively(q,p);
+        return newhead;
     }
+}
+
+bool isPalindrome(node *head)
+{   
+    if(!head){return false;}
+    node *head2=NULL;
+    node* temp=head;
+    vector<int> A;
+    while(temp)
+    {
+        A.push_back(temp->data);
+        temp=temp->next;
+    }
+    int L=A.size();
+    for(int i=L-1;i>=L/2;i--)
+    {
+        if(A[i]!=head->data)
+        {
+            return false;
+        }
+        head=head->next;
+    }
+    return true;
 }
 node* mergeList(node *f,node *s)
 {
@@ -140,8 +178,16 @@ node* mergeList(node *f,node *s)
 }
 int main()
 {
-   int ar[]={1,2,3,4,5,6}; 
-   create(ar,6);
+   int ar[]={}; 
+   if(sizeof(ar)==0)
+   {
+    cout<<"\n\ncan not procceed with this input";
+   }
+   else
+   {
+
+     create(ar,1);
+   }
    display(first);
    cout<<"\n\n\n";
     // cout<<"\nafter reversing the links we get (sliding window) \n";
@@ -150,8 +196,12 @@ int main()
 //    cout<<"\n\n this is with data reverse (do not use this)\n";
 //    reverseList_array(first);
 //    display(first);
-   cout<<"\n\n this is with recursive call \n";
-   ReverseList_recursively(NULL,first);
-   display(first);
+//    cout<<"\n\n this is with recursive call \n";
+//    node *head=ReverseList_recursively(first,NULL);
+//    display(head);
+    cout<<"\n\n\n";
+    cout<<isPalindrome(first);
+    cout<<"\n\n";
+
     return 0;
 }
